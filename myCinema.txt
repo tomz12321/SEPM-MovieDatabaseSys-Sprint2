@@ -1,0 +1,25 @@
+St Kilda,Plaza theatre,09:00,Full,W1
+St Kilda,Plaza theatre,11:00,Full,W1
+St Kilda,Plaza theatre,13:00,Full,W1
+St Kilda,Plaza theatre,19:00,Full,W1
+St Kilda,Plaza theatre,21:00,Full,W1
+Fitzroy,Plaza theatre,09:00,Available,W1
+Fitzroy,Plaza theatre,11:00,Available,W1
+Fitzroy,Plaza theatre,13:00,Available,W1
+Fitzroy,Plaza theatre,19:00,Available,W1
+Fitzroy,Plaza theatre,21:00,Available,W1
+Melbourne CBD,Plaza theatre,09:00,Full,W1
+Melbourne CBD,Plaza theatre,11:00,Full,W1
+Melbourne CBD,Plaza theatre,13:00,Full,W1
+Melbourne CBD,Plaza theatre,19:00,Full,W1
+Melbourne CBD,Plaza theatre,21:00,Full,W1
+Sunshine,Plaza theatre,09:00,Available,W1
+Sunshine,Plaza theatre,11:00,Available,W1
+Sunshine,Plaza theatre,13:00,Available,W1
+Sunshine,Plaza theatre,19:00,Available,W1
+Sunshine,Plaza theatre,21:00,Available,W1
+Lilydale,Plaza theatre,09:00,Full,W1
+Lilydale,Plaza theatre,11:00,Full,W1
+Lilydale,Plaza theatre,13:00,Full,W1
+Lilydale,Plaza theatre,19:00,Full,W1
+Lilydale,Plaza theatre,21:00,Full,W1
