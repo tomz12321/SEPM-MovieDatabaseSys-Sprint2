@@ -152,6 +152,41 @@ public class MovieSystem
         }
     }
     
+    /**
+     * A method to read ticket from file and test 500 tickets
+     * 
+     * @param  
+     * @return
+     * @throws FileNotFoundException if file is not found
+     * @throws IOException while exception during I/O actions
+     */
+    public void loadTicketFile(){
+        
+        String fileName = "myTickets.txt";
+        try{
+            
+            FileReader inputFile = new FileReader(fileName);
+            Scanner console = new Scanner(inputFile);
+            while(console.hasNextLine()){
+                String ticketString = console.nextLine();
+                String[] details = ticketString.split(",");
+                MovieTicket movieTicket = new MovieTicket(details[0],details[1],details[2],details[3],details[4],details[5],details[6],details[7]);
+                //display test data
+                System.out.println("= test 500 ticket data =");
+                //movieSession.display();
+                //ticketList.add(movieTicket);
+            }
+            inputFile.close();
+        }
+        catch(FileNotFoundException exception)
+        {
+            System.out.println(fileName + " not found");
+        }
+        catch(IOException e){
+            System.out.println("Error: Invalid file");
+        }
+    }
+
     public void createAvailableTicketlist(int ticketAmount, MovieSession movieSession)
     {
         for (int i = 0 ; i < ticketAmount ; i++)
@@ -248,7 +283,8 @@ public class MovieSystem
         
         //loadTicketFile()
         //ticketList = new ArrayList<Ticket>();
-        
+        loadTicketFile();
+
         movieSessionList = new ArrayList<MovieSession>();
         loadMovieSessionFile();
 
