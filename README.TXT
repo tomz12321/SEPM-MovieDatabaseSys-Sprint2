@@ -6,7 +6,7 @@ all he/she needs to know. The comments should usually include at least:
 
 PROJECT TITLE: SEPM - Movie database system
 PURPOSE OF PROJECT: 
-VERSION or DATE: 24/04/2018
+VERSION or DATE: 06/05/2018
 HOW TO START THIS PROJECT:
 (Examples) 
 01/05/2017 Object design
@@ -21,6 +21,9 @@ HOW TO START THIS PROJECT:
 01/04/2018 Design-menu
 02/04/2018 create-2-ticket-lists
 24/04/2018 Kick start SEPM Assignment 2 to practice Sprint 1
+01/05/2018 Kick start SEPM Assignment 2 to practice Sprint 2
+06/05/2018 Add function: write to file
+
 
 AUTHORS: Jyhwoei Yang (Tom)
 USER INSTRUCTIONS:
@@ -39,4 +42,3 @@ Step 8) Press 5 to Search available seats via a movie
 Step 9) Press 6 to Search available seats via a cineplex
 Step 10) Press 7 to Pay by Credit card
 Step 11) Press 8 to Exit
-
