@@ -6,7 +6,7 @@ import java.io.*;
  * Create a class for Movie System.
  * 
  * @author Jyh-woei Yang 
- * @version 23/04/2018
+ * @version 06/05/2018
  */
 public class MovieSystem
 {
@@ -17,6 +17,7 @@ public class MovieSystem
     private ArrayList<MovieSession> bookedTicketList;
     private ArrayList<MovieSession> availableTicketList;
     private ArrayList<MovieSession> movieSessionList;
+    private ArrayList<MovieTicket> movieTicketList;
     private MainController mainController;
     
     /**
@@ -27,6 +28,7 @@ public class MovieSystem
         // initialise instance variables
         loginUser = new User();
         userList = new ArrayList<User>();
+        movieTicketList = new ArrayList<MovieTicket>();
         mainController = new MainController();
     }    
 
@@ -152,6 +154,45 @@ public class MovieSystem
         }
     }
     
+    /**
+     * A method to read ticket from file and test 500 tickets
+     * 
+     * @param  
+     * @return
+     * @throws FileNotFoundException if file is not found
+     * @throws IOException while exception during I/O actions
+     */
+    public void loadTicketFile(){
+        
+        String fileName = "myTickets.txt";
+        try{
+            
+            FileReader inputFile = new FileReader(fileName);
+            Scanner console = new Scanner(inputFile);
+            int counter = 0;
+            while(console.hasNextLine()){
+                String ticketString = console.nextLine();
+                String[] details = ticketString.split(",");
+                MovieTicket movieTicket = new MovieTicket(details[0],details[1],details[2],details[3],details[4],details[5],details[6],details[7]);
+                //display test data
+                counter++;
+                System.out.println("= test "+counter+" ticket data =");
+                movieTicketList.add(movieTicket);
+                movieTicketList.get(counter-1).display();
+                //movieSession.display();
+                //ticketList.add(movieTicket);
+            }
+            inputFile.close();
+        }
+        catch(FileNotFoundException exception)
+        {
+            System.out.println(fileName + " not found");
+        }
+        catch(IOException e){
+            System.out.println("Error: Invalid file");
+        }
+    }
+
     public void createAvailableTicketlist(int ticketAmount, MovieSession movieSession)
     {
         for (int i = 0 ; i < ticketAmount ; i++)
@@ -248,7 +289,8 @@ public class MovieSystem
         
         //loadTicketFile()
         //ticketList = new ArrayList<Ticket>();
-        
+        loadTicketFile();
+
         movieSessionList = new ArrayList<MovieSession>();
         loadMovieSessionFile();
 
@@ -321,15 +363,22 @@ public class MovieSystem
 
                         //record the email and suburb of the customers
                         System.out.println("Please insert seat number:");
-                        String seatNumber = input.nextLine();
+                        String seatNumber;
+                        do{
+                            seatNumber = input.nextLine();
+                        }while(!validSeatNumber(seatNumber));
                         System.out.println("Please insert customer's Email:");
-                        String buyerEmail = input.nextLine();
+                        String buyerEmail;
+                        do{
+                            buyerEmail = input.nextLine();
+                        }while(!validEmail(buyerEmail));
                         System.out.println("Please insert customer's Suburb:");
                         String buyerSuburb = input.nextLine();
                         Ticket newTicket = new Ticket(loginUser.getName(),loginUser.getUserName(),"","seat"+seatNumber,buyerEmail,buyerSuburb);
                         
                         System.out.println("= Ticket booked =");
                         newTicket.display();
+                        writeFile();
                         break;
                         case '2':
                         //(2) Delete ticket for a movie session
@@ -465,13 +514,133 @@ public class MovieSystem
     }
 
     /**
-     * A method to write to file
+     * Method to check valid any seatnumber
+     * 
+     * @param seatNumber the seatNumber
+     * @return the boolean of valid seatNumber
+     */
+    private boolean validSeatNumber(String seatNumber)
+    {
+        if (convertStringtoInt(seatNumber) < 1 || convertStringtoInt(seatNumber) > 20)
+        {
+            System.out.println("Please insert seatnumber from 1 to 20:");
+            return false; // if seatnumber is not in the bound 0 - 20 , return false            
+        }
+        return true; // else return true
+    }
+
+    /**
+     * Method to check valid any email
+     * 
+     * @param email the email
+     * @return the boolean of valid email
+     */
+    private boolean validEmail(String email)
+    {
+        if (!email.contains("@"))
+        {
+            System.out.println("Please insert email again, format:xxx.@abc.com");
+            return false; // if email doesnt contain "@" , return false            
+        }
+        return true; // else return true
+    }
+
+    /**
+     * A method to write ticket to file
      * 
      * @param  
      * @return
      * @throws IOException while exception during I/O actions
      */
     private void writeFile()
+    {
+       String filename = ("mytickets.txt");
+       String[] tickets = new String[8];
+       Scanner input = new Scanner(System.in);
+       String line = "";
+       int numberOfTickets;
+       MainController toWriteBookedList = new MainController();
+       //toWriteBookedList.bookedTicketList
+       System.out.println("How many tickets your want to buy :");
+       numberOfTickets = convertStringtoInt(input.nextLine());
+       System.out.println(numberOfTickets + ""); 
+
+       //try catch to handle IOException
+       try
+       {
+            PrintWriter outputFile = new PrintWriter (filename);
+
+            for (int i = 0 ; i < numberOfTickets ; i++ )
+            {
+                System.out.println("Please insert Tickets " + (i + 1) + "'s Location :");
+                tickets[0] = movieTicketList.get(i).getLocation();
+                System.out.println(tickets[0]);
+
+                System.out.println("Please insert Tickets" + (i + 1) + "'s Cinema :");
+                tickets[1] = movieTicketList.get(i).getCinema();
+                System.out.println(tickets[1]);
+
+                System.out.println("Please insert Tickets " + (i + 1) + "'s TimeSession :");
+                tickets[2] = movieTicketList.get(i).getTimeSession();
+                System.out.println(tickets[2]);
+
+                System.out.println("Please insert Tickets" + (i + 1) + "'s BuyerEmail :");
+                tickets[3] = movieTicketList.get(i).getBuyerEmail();
+                System.out.println(tickets[3]);
+
+                System.out.println("Please insert Tickets " + (i + 1) + "'s BuyerSuburb :");
+                tickets[4] = movieTicketList.get(i).getBuyerSuburb();
+                System.out.println(tickets[4]);
+
+                System.out.println("Please insert Tickets" + (i + 1) + "'s getIsFull :");
+                tickets[5] = movieTicketList.get(i).getIsFull();
+                System.out.println(tickets[5]);
+
+                System.out.println("Please insert Tickets " + (i + 1) + "'s getWeekday :");
+                tickets[6] = movieTicketList.get(i).getWeekday();
+                System.out.println(tickets[6]);
+
+                System.out.println("Please insert Tickets" + (i + 1) + "'s Cinema :");
+                tickets[7] = movieTicketList.get(i).getSeatNumber();
+                System.out.println(tickets[7]);
+
+                //movieTicketList
+
+
+                //combine elements into a line
+                for (int k = 0 ; k < 8 ; k++ )
+                {   
+                    //line = tickets[0] + "," + tickets[1] + "," + tickets[2] + "," + tickets[3] + "," + tickets[4] + "," + tickets[5]+ "," + tickets[6]+ "," + tickets[7];
+                    if (k != 7)
+                        line = line + tickets[k] + ",";
+                    else
+                        line = line + tickets[k];
+                }
+                //display a message about write line
+                System.out.println("");
+                System.out.println("Write a message in line "+ i +" to a file");
+                System.out.println("");
+
+                outputFile.println(line);
+                //reset line
+                line = "";
+            }
+            outputFile.close();    
+        }
+        catch(IOException exception)
+        {
+            System.out.println("Unexpected I/O error occured");
+        }
+    }
+    
+    /**
+     * A method to write to file
+     * 
+     * @param  
+     * @return
+     * @throws IOException while exception during I/O actions
+     */
+    private void writeFilebk()
     {
     //    String filename = ("myvideos.txt");
         //use movie.getNumbersOfElement() to replace 6
