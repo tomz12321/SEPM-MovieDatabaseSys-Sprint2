@@ -24,6 +24,7 @@ HOW TO START THIS PROJECT:
 01/05/2018 Kick start SEPM Assignment 2 to practice Sprint 2
 06/05/2018 Add function: write to file
 
+
 AUTHORS: Jyhwoei Yang (Tom)
 USER INSTRUCTIONS:
 
@@ -41,4 +42,3 @@ Step 8) Press 5 to Search available seats via a movie
 Step 9) Press 6 to Search available seats via a cineplex
 Step 10) Press 7 to Pay by Credit card
 Step 11) Press 8 to Exit
-
