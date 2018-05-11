@@ -3,7 +3,7 @@
  * Write a description of class MovieSession here.
  * 
  * @author Jyh-woei Yang
- * @version 23/04/2018
+ * @version 11/05/2018
  */
 public class MovieSession
 {
@@ -124,6 +124,6 @@ public class MovieSession
     }
     
     public void displayMovieTitle(){        
-        System.out.println("MovieTitle:"+this.movieTitle);
+        System.out.println("MovieTitle:"+ this.movieTitle +" @ " + this.timeSession);
     }
 }

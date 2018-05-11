@@ -4,9 +4,9 @@ Tell the reader (someone who does not know anything about this project)
 all he/she needs to know. The comments should usually include at least:
 ------------------------------------------------------------------------
 
-PROJECT TITLE: SEPM - Movie database system
+PROJECT TITLE: SEPM - jMoSS (Java-Based Movie Search System)
 PURPOSE OF PROJECT: 
-VERSION or DATE: 06/05/2018
+VERSION or DATE: 11/05/2018
 HOW TO START THIS PROJECT:
 (Examples) 
 01/05/2017 Object design
@@ -23,13 +23,15 @@ HOW TO START THIS PROJECT:
 24/04/2018 Kick start SEPM Assignment 2 to practice Sprint 1
 01/05/2018 Kick start SEPM Assignment 2 to practice Sprint 2
 06/05/2018 Add function: write to file
+11/05/2018 Finalise the prototype for Sprint 2's MVP (Minimum Viable Product) and Demo
 
 AUTHORS: Jyhwoei Yang (Tom)
 USER INSTRUCTIONS:
 
 New a MovieSystem object from the class MovieSystem, then use the method: loginMenu() to operate the system.
 Step 1) System will load in user database from the file myClerks.txt
-Step 2) System will load in movie-session database from the file myMovieSesssions.txt
+Step 2.1) System will load in movie-session database from the file myMovieSesssions.txt
+Step 2.2) System will load in ticket database from the file myTickets.txt
 Step 3.1) Insert Username and Password to login the system.
 Step 3.1.1) If login successfully, display main menu.
 Step 3.1.2) If login unsuccessfully, exit the system.
@@ -40,5 +42,7 @@ Step 7) Press 4 to Display the corresponding movie session for the whole week
 Step 8) Press 5 to Search available seats via a movie
 Step 9) Press 6 to Search available seats via a cineplex
 Step 10) Press 7 to Pay by Credit card
-Step 11) Press 8 to Exit
+Step 11) Press 8 to Exit and write data back to the text file: myTickets.txt.
 
+This project requires Blue to Demo:
+[Download site] https://www.bluej.org/versions.html
