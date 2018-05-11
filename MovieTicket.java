@@ -3,7 +3,7 @@
  * Write a description of class Ticket here.
  * 
  * @author Jyh-woei Yang
- * @version 01/05/2018
+ * @version 11/05/2018
  */
 public class MovieTicket
 {

@@ -6,7 +6,7 @@ import java.io.*;
  * Create a class for Movie System.
  * 
  * @author Jyh-woei Yang 
- * @version 06/05/2018
+ * @version 11/05/2018
  */
 public class MovieSystem
 {
@@ -62,6 +62,42 @@ public class MovieSystem
     }
 
     /**
+     * Method to convert from Wx to Monday
+     * 
+     * @param a String of input
+     * @return the String of output
+     * @throws NullPointerException if input is a Null format
+     */
+    private String ConvertWxToMonday(String input) //method to convert Wx to Monday
+    {
+    //ConvertWxToMonday()
+        //Today is
+        
+        try
+        {
+        if (input.equals("W1"))
+            return "Monday";
+        if (input.equals("W2"))
+            return "Tuesday";
+        if (input.equals("W3"))
+            return "Wednesday";
+        if (input.equals("W4"))
+            return "Thursday";
+        if (input.equals("W5"))
+            return "Friday";
+        if (input.equals("W6"))
+            return "Saturday";
+        if (input.equals("W7"))
+            return "Sunday";
+        }
+        catch (NullPointerException nfe)
+        {
+            System.out.println("NullPointerException: " + nfe.getMessage() + ", please W1-W7!");
+        }
+        return "Wrong inputday";
+    }
+    
+    /**
      * A method to display Booking and Delete Menu
      * 
      * @param
@@ -87,6 +123,24 @@ public class MovieSystem
         System.out.print("Choose an option :");
     }
 
+    /**
+     * A method to display Cineplex
+     * 
+     * @param
+     * @return 
+     */
+    private void displayCineplex()
+    {
+        //interface
+        System.out.println("");
+        System.out.println("=====================");
+        System.out.println("(1) Lilydale, Plaza theatre");
+        System.out.println("(2) St Kilda, Plaza theatre");
+        System.out.println("(3) Fitzroy , Plaza theatre");
+        System.out.println("(4) Melbourne CBD, Plaza theatre");
+        System.out.println("(5) Sunshine, Plaza theatre");
+    }
+    
     /**
      * A method to exit the system
      * 
@@ -126,7 +180,7 @@ public class MovieSystem
      * @throws FileNotFoundException if file is not found
      * @throws IOException while exception during I/O actions
      */
-    public void loadMovieSessionFile(){
+    private void loadMovieSessionFile(){
         
         String fileName = "myMovieSessions.txt";
         try{
@@ -137,9 +191,11 @@ public class MovieSystem
                 String movieSessionString = console.nextLine();
                 String[] details = movieSessionString.split(",");
                 MovieSession movieSession = new MovieSession(details[0],details[1],details[2],details[3],details[4],details[5]);
+                
                 //display test data
-                System.out.println("= test data =");
+                //System.out.println("= test data =");
                 //movieSession.display();
+                
                 movieSessionList.add(movieSession);
             }
             inputFile.close();
@@ -161,7 +217,7 @@ public class MovieSystem
      * @throws FileNotFoundException if file is not found
      * @throws IOException while exception during I/O actions
      */
-    public void loadTicketFile(){
+    private void loadTicketFile(){
         
         String fileName = "myTickets.txt";
         try{
@@ -175,10 +231,12 @@ public class MovieSystem
                 MovieTicket movieTicket = new MovieTicket(details[0],details[1],details[2],details[3],details[4],details[5],details[6],details[7]);
                 //display test data
                 counter++;
-                System.out.println("= test "+counter+" ticket data =");
+                //System.out.println("= test "+counter+" ticket data =");
                 movieTicketList.add(movieTicket);
-                movieTicketList.get(counter-1).display();
+                
+                //movieTicketList.get(counter-1).display();
                 //movieSession.display();
+                
                 //ticketList.add(movieTicket);
             }
             inputFile.close();
@@ -192,7 +250,7 @@ public class MovieSystem
         }
     }
 
-    public void createAvailableTicketlist(int ticketAmount, MovieSession movieSession)
+    private void createAvailableTicketlist(int ticketAmount, MovieSession movieSession)
     {
         for (int i = 0 ; i < ticketAmount ; i++)
         {
@@ -201,7 +259,7 @@ public class MovieSystem
         //writeAvailableTicket();
     }
     
-    public void createBookedTicketlist(int ticketAmount)
+    private void createBookedTicketlist(int ticketAmount)
     {
         System.out.println(ticketAmount + " ticket list has been created!");
         //writeBookedTicket();
@@ -215,7 +273,7 @@ public class MovieSystem
      * @throws FileNotFoundException if file is not found
      * @throws IOException while exception during I/O actions
      */
-    public void loadUserFile(){
+    private void loadUserFile(){
         
         String fileName = "myClerks.txt";
         try{
@@ -265,7 +323,7 @@ public class MovieSystem
         System.out.println("== Search Result ==");
         for (int j = 0 ; j < resultList.size() ; j++)
         {
-            userList.get(j).display();
+            resultList.get(j).display();
         }
 
         if (resultList.size() == 0)
@@ -314,22 +372,49 @@ public class MovieSystem
         String username = input.nextLine(); 
         System.out.println(" Please insert your password");
         String password = input.nextLine();
-        System.out.println("Please input what weekday is today?");
-        this.weekday = input.nextLine();
-        int weekdayCount = convertStringtoInt(weekday.charAt(1)+"");
-        System.out.println(weekday);
-        System.out.println(weekdayCount);
+        System.out.println(" Please input what weekday is today?");
+        do 
+        {
+            this.weekday = input.nextLine();
+        }
+        while(!validWeekday(weekday));
+        
+        int weekdayCount = 1;
+        weekdayCount = convertStringtoInt(weekday.charAt(1)+"");
+        //System.out.println(weekday);
+        
+        //ConvertWxToMonday()
+        //Today is
+        if (weekdayCount == 1)
+            System.out.println("Today is Monday.");
+        if (weekdayCount == 2)
+            System.out.println("Today is Tuesday.");
+        if (weekdayCount == 3)
+            System.out.println("Today is Wednesday.");
+        if (weekdayCount == 4)
+            System.out.println("Today is Thursday.");
+        if (weekdayCount == 5)
+            System.out.println("Today is Friday.");
+        if (weekdayCount == 6)
+            System.out.println("Today is Saturday.");
+        if (weekdayCount == 7)
+            System.out.println("Today is Sunday");
+            
         
         loginUser.setUserName(username);
         loginUser.setPassword(password);
         //Tom
         loginUser.setName(userList.get(0).getName());
-        loginUser.display();
+        //loginUser.display();
         
         System.out.println();
         //matchUsernameAndPassword()
         isOperating = matchUsernameAndPassword(userList, username, password);
-        
+        if (isOperating)
+        {
+            System.out.println("");
+            System.out.println("== Welcome to the Movie system, "+ username +"! ==");
+        }
         
         ticketList = new ArrayList<Ticket>();
         //create a ticket list to sell
@@ -397,6 +482,7 @@ public class MovieSystem
                         Ticket newTicket = new Ticket(loginUser.getName(),loginUser.getUserName(),"","seat"+seatNumber,buyerEmail,buyerSuburb);
                         
                         System.out.println("= Ticket booked =");
+                        System.out.println("Cinema Location: " + cinemax);
                         newTicket.display();
                         writeFile();
                         break;
@@ -430,19 +516,28 @@ public class MovieSystem
                         //(3) Display a list of cineplex theatres
                         System.out.println("(3) Display a list of cineplex theatres");
                         //Ticket.displayCineplex();
-
+                        displayCineplex();
                         break;
                         case '4':
                         //(4) Display the corresponding movie session for the whole week
                         System.out.println("(4) Display the corresponding movie session for the whole week");    
                         //MovieSession.displayWeek();
-                        for (int i = 0; i < movieSessionList.size(); i++)
+                        int index = ((weekdayCount-1)*25); 
+                        for (int i = index; i < movieSessionList.size(); i++)
                         {
+                            
+                            if ((i) % 25 == 0 && (i+1) != 175)
+                            {
+                                System.out.println("");   
+                                System.out.println("=== " + ConvertWxToMonday(movieSessionList.get(i).getWeekday()) + " Movie Sessions ===");
+                            }
+                            
+                            if ((i) % 5 == 0 && (i+1) != 175)
+                            {
+                                System.out.println("=== " + ConvertWxToMonday(movieSessionList.get(i).getWeekday()) + " at " + movieSessionList.get(i).getLocation()+ " ===");
+                                System.out.println("");
+                            }
                             movieSessionList.get(i).displayMovieTitle();
-                            if ((i+1) % 35 == 0 && (i+1) != 175)
-                                System.out.println("=== Weekly ===");
-                            if ((i+1) % 5 == 0 && (i+1) != 175)
-                                System.out.println("=== Weekly daily ===");
                         }
                         break;
                         case '5':
@@ -461,11 +556,19 @@ public class MovieSystem
                         //MovieSystem.searchSeat(cineplexName);
                         for (int i = 0; i < movieTicketList.size(); i++)
                         {
+                            int ticketCount = 0;
                             if (i < 20)
                             {
                             String isFull = movieTicketList.get(i).getIsFull();
-                            if (isFull.equals("Full"))
-                                System.out.println("= Ticket Seatnumber " + (i%20+1) + " =");
+                            if (isFull.equals("Available"))
+                                {
+                                    System.out.println("= Ticket Seatnumber " + (i%20+1) + " =");
+                                    ticketCount++;
+                                }
+                            
+                            if (ticketCount < 0)
+                                System.out.println("= Error Msg: The Session are full, please select other timeSession! =");
+                        
                             }
                         }
                         break;
@@ -480,6 +583,7 @@ public class MovieSystem
                         
                         case '8':
                         //Exit system, and reset variables
+                        writeFile();
                         isOperating = exitSystem();
                         break;
                     }
@@ -611,6 +715,22 @@ public class MovieSystem
         return true; // else return true
     }
 
+    /**
+     * Method to check valid any weekday
+     * 
+     * @param weekday the weekday
+     * @return the boolean of valid weekday
+     */
+    private boolean validWeekday(String weekday)
+    {
+        if (weekday.equals("W1") || weekday.equals("W2") || weekday.equals("W3") || weekday.equals("W4") || weekday.equals("W5") || weekday.equals("W6") || weekday.equals("W7"))
+        {
+            return true; // if weekday are not valid           
+        }
+        System.out.println(" Error Msg: Please insert format within W1-W7");
+        return false; // else return false
+    }
+    
     /**
      * A method to write ticket to file
      * 

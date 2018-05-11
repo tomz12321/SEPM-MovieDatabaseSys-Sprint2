@@ -3,7 +3,7 @@
  * Write a description of class User here.
  * 
  * @author Jyh-woei Yang
- * @version 23/04/2018
+ * @version 11/05/2018
  */
 public class User
 {
@@ -71,6 +71,6 @@ public class User
         
         System.out.println("Name:" + this.name);
         System.out.println("UserName:" + this.userName);
-        System.out.println("Password:" + this.password);
+        //System.out.println("Password:" + this.password);
     }
 }
