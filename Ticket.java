@@ -114,9 +114,12 @@ public class Ticket extends User
 
     public void display(){
         
-        System.out.println("Name:"+this.name);
-        System.out.println("UserName:"+this.userName);
-        System.out.println("Password:"+this.password);
+        System.out.println("Operator Name:"+this.name);
+        //System.out.println("UserName:"+this.userName);
+        //System.out.println("Password:"+this.password);
+        System.out.println("Weekday: Monday");
+        System.out.println("Movie Session: 11:00");
+        System.out.println("Movie Title: 007");
         System.out.println("SeatNumber:"+this.seatNumber);
         System.out.println("BuyerEmail:"+this.buyerEmail);
         System.out.println("BuyerSuburb:"+this.buyerSuburb);
