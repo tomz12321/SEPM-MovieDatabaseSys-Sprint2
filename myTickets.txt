@@ -1,4 +1,4 @@
-St Kilda,Plaza theatre,09:00,emptyBuyerEmail,emptyBuyerSuburb,Full,W1,Seat1
+St Kilda,Plaza theatre,09:00,emptyBuyerEmail,emptyBuyerSuburb,Availalbe,W1,Seat1
 St Kilda,Plaza theatre,09:00,emptyBuyerEmail,emptyBuyerSuburb,Full,W1,Seat2
 St Kilda,Plaza theatre,09:00,emptyBuyerEmail,emptyBuyerSuburb,Full,W1,Seat3
 St Kilda,Plaza theatre,09:00,emptyBuyerEmail,emptyBuyerSuburb,Full,W1,Seat4

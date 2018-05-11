@@ -122,4 +122,8 @@ public class MovieSession
         System.out.println("Isfree:"+this.isfree);
         System.out.println("Weekday:"+this.weekday);
     }
+    
+    public void displayMovieTitle(){        
+        System.out.println("MovieTitle:"+this.movieTitle);
+    }
 }

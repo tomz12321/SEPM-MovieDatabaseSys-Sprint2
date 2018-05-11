@@ -13,6 +13,7 @@ public class MovieSystem
     // instance variables 
     private ArrayList<User> userList;
     private User loginUser;
+    private String weekday;
     private ArrayList<Ticket> ticketList;
     private ArrayList<MovieSession> bookedTicketList;
     private ArrayList<MovieSession> availableTicketList;
@@ -140,8 +141,6 @@ public class MovieSystem
                 System.out.println("= test data =");
                 //movieSession.display();
                 movieSessionList.add(movieSession);
-                createAvailableTicketlist(20,movieSession);
-                createBookedTicketlist(20);
             }
             inputFile.close();
         }
@@ -300,6 +299,10 @@ public class MovieSystem
         bookedTicketList = new ArrayList<MovieSession>();
         //loadBookedTicketFile()
         
+        //initialize data
+        MovieTicket[] createAvailableTicketlist = new MovieTicket[20];
+        MovieTicket[] createBookedTicketlist = new MovieTicket[20];
+
         System.out.println(userList.get(0).getUserName());
         System.out.println(userList.get(0).getPassword());
         
@@ -311,6 +314,11 @@ public class MovieSystem
         String username = input.nextLine(); 
         System.out.println(" Please insert your password");
         String password = input.nextLine();
+        System.out.println("Please input what weekday is today?");
+        this.weekday = input.nextLine();
+        int weekdayCount = convertStringtoInt(weekday.charAt(1)+"");
+        System.out.println(weekday);
+        System.out.println(weekdayCount);
         
         loginUser.setUserName(username);
         loginUser.setPassword(password);
@@ -322,12 +330,13 @@ public class MovieSystem
         //matchUsernameAndPassword()
         isOperating = matchUsernameAndPassword(userList, username, password);
         
+        
         ticketList = new ArrayList<Ticket>();
         //create a ticket list to sell
         for (int i = 0; i < 20; i++)
         {
             Ticket newTicket = new Ticket(loginUser.getName(), loginUser.getUserName(), loginUser.getPassword(),"Seat"+String.valueOf((i+1)),"","");
-            newTicket.display();
+            //newTicket.display();
             ticketList.add(i,newTicket);
         }
         
@@ -356,17 +365,28 @@ public class MovieSystem
                         //searchCase();
                         //(1) Book ticket for a movie session
                         System.out.println("(1) Book ticket for a movie session");
-
+                        
                         //mainController.display(all the movie session)
                         //mainController.addBookedTicket(movieSessionList.get(i));
                         //mainController.deleteAvailableTicket();//AvailableTicketList.remove();
+                        String cinemax;
 
-                        //record the email and suburb of the customers
+                        System.out.println("Please insert Cinema (Location):");
+                            cinemax = input.nextLine();
+                        //do while (!validCinemax)
+
+                        String movieSession;
+
+                        System.out.println("Please insert MovieSession (Time):");
+                            movieSession = input.nextLine();
+                        //do while (!validMovieSession)
+                        
                         System.out.println("Please insert seat number:");
                         String seatNumber;
                         do{
                             seatNumber = input.nextLine();
                         }while(!validSeatNumber(seatNumber));
+                        //record the email and suburb of the customers
                         System.out.println("Please insert customer's Email:");
                         String buyerEmail;
                         do{
@@ -383,6 +403,26 @@ public class MovieSystem
                         case '2':
                         //(2) Delete ticket for a movie session
                         System.out.println("(2) Delete ticket for a movie session");
+                        
+                        System.out.println("Please insert Cinema (Location):");
+                        //String cinemax;
+                        cinemax = input.nextLine();
+
+                        System.out.println("Please insert your movie Session (Time)");
+                        //String movieSession;
+                        movieSession = input.nextLine();
+                        //Display all occupied seat
+
+                        System.out.println("Please insert customers'Email to confirm the deletion");
+                        String customersEmail;
+                        customersEmail = input.nextLine();
+
+                        //if (customersEmail.equals())
+                        //    movieTicket.setIsFull("Available");
+
+                        String selectMovieSession;
+                        selectMovieSession = "";//input.nextLine();
+                        System.out.println("Booking " + selectMovieSession + " is deleted.");
                         //BookticketList.remove()
                         //AvailableTicketList.add();
                         break;
@@ -390,25 +430,51 @@ public class MovieSystem
                         //(3) Display a list of cineplex theatres
                         System.out.println("(3) Display a list of cineplex theatres");
                         //Ticket.displayCineplex();
+
                         break;
                         case '4':
                         //(4) Display the corresponding movie session for the whole week
                         System.out.println("(4) Display the corresponding movie session for the whole week");    
                         //MovieSession.displayWeek();
+                        for (int i = 0; i < movieSessionList.size(); i++)
+                        {
+                            movieSessionList.get(i).displayMovieTitle();
+                            if ((i+1) % 35 == 0 && (i+1) != 175)
+                                System.out.println("=== Weekly ===");
+                            if ((i+1) % 5 == 0 && (i+1) != 175)
+                                System.out.println("=== Weekly daily ===");
+                        }
                         break;
                         case '5':
                         //(5) Search available seats via a movie
                         System.out.println("(5) Search available seats via a movie");
-                        //MovieSystem.searchSeat(MovieName);
+                        //MovieSystem.searchSeat(MovieName)
+                        System.out.println("Please input a movie name");
+                        String keywordMovieName;
+                        keywordMovieName = input.nextLine();
+                        System.out.println(keywordMovieName+" is selected.");
+                        
                         break;
                         case '6':
                         //(6) Search available seats via a cineplex
                         System.out.println("(6) Search available seats via a cineplex");
                         //MovieSystem.searchSeat(cineplexName);
+                        for (int i = 0; i < movieTicketList.size(); i++)
+                        {
+                            if (i < 20)
+                            {
+                            String isFull = movieTicketList.get(i).getIsFull();
+                            if (isFull.equals("Full"))
+                                System.out.println("= Ticket Seatnumber " + (i%20+1) + " =");
+                            }
+                        }
                         break;
                         case '7':
                         //(7) Pay by Creditcard
                         System.out.println("(7) Pay by Creditcard");
+                        String confirmCreditCard;
+                        System.out.println("Are you sure you are going to pay by credit card? (y/n)");
+                        confirmCreditCard = input.nextLine();
                         //MovieSystem.PayCredit();
                         break;
                         
@@ -561,9 +627,9 @@ public class MovieSystem
        int numberOfTickets;
        MainController toWriteBookedList = new MainController();
        //toWriteBookedList.bookedTicketList
-       System.out.println("How many tickets your want to buy :");
-       numberOfTickets = convertStringtoInt(input.nextLine());
-       System.out.println(numberOfTickets + ""); 
+       //System.out.println("How many tickets your want to buy :");
+       numberOfTickets = movieTicketList.size();//convertStringtoInt(input.nextLine());
+       //System.out.println(numberOfTickets + ""); 
 
        //try catch to handle IOException
        try
@@ -572,37 +638,37 @@ public class MovieSystem
 
             for (int i = 0 ; i < numberOfTickets ; i++ )
             {
-                System.out.println("Please insert Tickets " + (i + 1) + "'s Location :");
+                //System.out.println("Please insert Tickets " + (i + 1) + "'s Location :");
                 tickets[0] = movieTicketList.get(i).getLocation();
-                System.out.println(tickets[0]);
+                //System.out.println(tickets[0]);
 
-                System.out.println("Please insert Tickets" + (i + 1) + "'s Cinema :");
+                //System.out.println("Please insert Tickets" + (i + 1) + "'s Cinema :");
                 tickets[1] = movieTicketList.get(i).getCinema();
-                System.out.println(tickets[1]);
+                //System.out.println(tickets[1]);
 
-                System.out.println("Please insert Tickets " + (i + 1) + "'s TimeSession :");
+                //System.out.println("Please insert Tickets " + (i + 1) + "'s TimeSession :");
                 tickets[2] = movieTicketList.get(i).getTimeSession();
-                System.out.println(tickets[2]);
+                //System.out.println(tickets[2]);
 
-                System.out.println("Please insert Tickets" + (i + 1) + "'s BuyerEmail :");
+                //System.out.println("Please insert Tickets" + (i + 1) + "'s BuyerEmail :");
                 tickets[3] = movieTicketList.get(i).getBuyerEmail();
-                System.out.println(tickets[3]);
+                //System.out.println(tickets[3]);
 
-                System.out.println("Please insert Tickets " + (i + 1) + "'s BuyerSuburb :");
+                //System.out.println("Please insert Tickets " + (i + 1) + "'s BuyerSuburb :");
                 tickets[4] = movieTicketList.get(i).getBuyerSuburb();
-                System.out.println(tickets[4]);
+                //System.out.println(tickets[4]);
 
-                System.out.println("Please insert Tickets" + (i + 1) + "'s getIsFull :");
+                //System.out.println("Please insert Tickets" + (i + 1) + "'s getIsFull :");
                 tickets[5] = movieTicketList.get(i).getIsFull();
-                System.out.println(tickets[5]);
+                //System.out.println(tickets[5]);
 
-                System.out.println("Please insert Tickets " + (i + 1) + "'s getWeekday :");
+                //System.out.println("Please insert Tickets " + (i + 1) + "'s getWeekday :");
                 tickets[6] = movieTicketList.get(i).getWeekday();
-                System.out.println(tickets[6]);
+                //System.out.println(tickets[6]);
 
-                System.out.println("Please insert Tickets" + (i + 1) + "'s Cinema :");
+                //System.out.println("Please insert Tickets" + (i + 1) + "'s Cinema :");
                 tickets[7] = movieTicketList.get(i).getSeatNumber();
-                System.out.println(tickets[7]);
+                //System.out.println(tickets[7]);
 
                 //movieTicketList
 
@@ -617,9 +683,10 @@ public class MovieSystem
                         line = line + tickets[k];
                 }
                 //display a message about write line
-                System.out.println("");
-                System.out.println("Write a message in line "+ i +" to a file");
-                System.out.println("");
+                int lineCount = i + 1;
+                //System.out.println("");
+                //System.out.println("Write a message in line "+ lineCount +" to a file");
+                //System.out.println("");
 
                 outputFile.println(line);
                 //reset line
