@@ -533,11 +533,12 @@ public class MovieSystem
                             }
                             
                             if ((i) % 5 == 0 && (i+1) != 175)
-                            {
                                 System.out.println("=== " + ConvertWxToMonday(movieSessionList.get(i).getWeekday()) + " at " + movieSessionList.get(i).getLocation()+ " ===");
-                                System.out.println("");
-                            }
+
                             movieSessionList.get(i).displayMovieTitle();
+                            
+                            if ((i) % 5 == 4 && (i+1) != 175)
+                                System.out.println("");
                         }
                         break;
                         case '5':
