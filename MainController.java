@@ -184,7 +184,7 @@ public class MainController
     public void searchByEmail(String searchEmail)
     {
         //Bookings by email   
-        for(int i = 0; i < movieSessionList.size(); i++)
+        for(int i = 0; i < movieTicketList.size(); i++)
         {
             if(movieTicketList.get(i).getBuyerEmail().equals(searchEmail))
                 movieTicketList.get(i).display();
