@@ -5,7 +5,7 @@ import java.io.*;
  * Write a description of class MainController here.
  * 
  * @author Jyhwoei Yang 
- * @version 11/05/2018
+ * @version 15/05/2018
  */
 public class MainController
 {    
@@ -15,6 +15,7 @@ public class MainController
     private ArrayList<MovieSession> bookedTicketList;
     private ArrayList<MovieSession> availableTicketList;
     private ArrayList<MovieSession> movieSessionList;
+    private ArrayList<MovieTicket> movieTicketList;
     
     /** Default Constructor of Class MovieDatabase
      * 
@@ -27,12 +28,13 @@ public class MainController
         bookedTicketList = new ArrayList<MovieSession>();
         availableTicketList = new ArrayList<MovieSession>();
         movieSessionList = new ArrayList<MovieSession>();
+        movieTicketList = new ArrayList<MovieTicket>();
     }
     
     /** Constructor of Class MovieDatabase
      * 
      */
-    public MainController(ArrayList<User> userList, ArrayList<Ticket> ticketList, ArrayList<MovieSession> bookedTicketList, ArrayList<MovieSession> availableTicketList, ArrayList<MovieSession> movieSessionList)
+    public MainController(ArrayList<User> userList, ArrayList<Ticket> ticketList, ArrayList<MovieSession> bookedTicketList, ArrayList<MovieSession> availableTicketList, ArrayList<MovieSession> movieSessionList, ArrayList<MovieTicket> movieTicketList)
     {
         //initialise the variables
         this.userList = userList;
@@ -40,6 +42,7 @@ public class MainController
         this.bookedTicketList = bookedTicketList;
         this.availableTicketList = availableTicketList;
         this.movieSessionList = movieSessionList;
+        this.movieTicketList = movieTicketList;
     }
     
     /**
@@ -138,6 +141,54 @@ public class MainController
             }
         }        
         return resultList;
+    }
+    
+    /**
+     * A method to search movie session by name
+     * 
+     * @param String searchName
+     * @return 
+     */
+    public void searchByName(String searchName)
+    {
+        //Movie session by name   
+        for(int i = 0; i < movieSessionList.size(); i++)
+        {
+            if(movieSessionList.get(i).getMovieTitle().equals(searchName))
+                movieSessionList.get(i).displayMovieTitle();
+        }
+    }
+    
+     /**
+     * A method to search movie session by cinema
+     * 
+     * @param String searchCinema
+     * @return
+     */
+    public void searchByCinema(String searchCinema)
+    {
+        //Movie session by cinema   
+        for(int i = 0; i < movieSessionList.size(); i++)
+        {
+            if(movieSessionList.get(i).getLocation().equals(searchCinema))
+                movieSessionList.get(i).displayMovieTitle();
+        }
+    }
+    
+     /**
+     * A method to search ticket by email
+     * 
+     * @param String searchEmail
+     * @return
+     */
+    public void searchByEmail(String searchEmail)
+    {
+        //Bookings by email   
+        for(int i = 0; i < movieSessionList.size(); i++)
+        {
+            if(movieTicketList.get(i).getBuyerEmail().equals(searchEmail))
+                movieTicketList.get(i).display();
+        }
     }
 }   
     

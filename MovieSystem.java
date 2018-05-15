@@ -6,7 +6,7 @@ import java.io.*;
  * Create a class for Movie System.
  * 
  * @author Jyh-woei Yang 
- * @version 11/05/2018
+ * @version 15/05/2018
  */
 public class MovieSystem
 {
@@ -92,7 +92,7 @@ public class MovieSystem
         }
         catch (NullPointerException nfe)
         {
-            System.out.println("NullPointerException: " + nfe.getMessage() + ", please W1-W7!");
+            System.out.println("NullPointerException: " + nfe.getMessage() + ", please follow format W1(Monday) - W7(Sunday)!");
         }
         return "Wrong inputday";
     }
@@ -372,7 +372,7 @@ public class MovieSystem
         String username = input.nextLine(); 
         System.out.println(" Please insert your password");
         String password = input.nextLine();
-        System.out.println(" Please input what weekday is today?");
+        System.out.println(" Please input what weekday is today? [Format: W1(Monday) - W7(Sunday)]");
         do 
         {
             this.weekday = input.nextLine();
@@ -484,8 +484,9 @@ public class MovieSystem
                         System.out.println("= Ticket booked =");
                         System.out.println("Cinema Location: " + cinemax);
                         newTicket.display();
-                        writeFile();
+                        //writeFile();
                         break;
+                        
                         case '2':
                         //(2) Delete ticket for a movie session
                         System.out.println("(2) Delete ticket for a movie session");
@@ -505,19 +506,33 @@ public class MovieSystem
 
                         //if (customersEmail.equals())
                         //    movieTicket.setIsFull("Available");
-
+                        
+                        //print out all the ticket purchased by this customer.
+                        //System.out.println("");
+                        //System.out.println("= Print out purchased ticket details =");
+                        //System.out.println("");
+                        //printTicketByEmail(customersEmail);
+                        
+                        //Confirm to delete?
+                        //String confirmDelete;
+                        //System.out.println("Confirm to delete this booking? (y/n)");
+                        //confirmDelete = input.nextLine();
+                        
+                        //IS
                         String selectMovieSession;
                         selectMovieSession = "";//input.nextLine();
-                        System.out.println("Booking " + selectMovieSession + " is deleted.");
+                        System.out.println("Msg: Booking " + selectMovieSession + "is deleted.");
                         //BookticketList.remove()
                         //AvailableTicketList.add();
                         break;
+                        
                         case '3':
                         //(3) Display a list of cineplex theatres
                         System.out.println("(3) Display a list of cineplex theatres");
                         //Ticket.displayCineplex();
                         displayCineplex();
                         break;
+                        
                         case '4':
                         //(4) Display the corresponding movie session for the whole week
                         System.out.println("(4) Display the corresponding movie session for the whole week");    
@@ -541,6 +556,7 @@ public class MovieSystem
                                 System.out.println("");
                         }
                         break;
+                        
                         case '5':
                         //(5) Search available seats via a movie
                         System.out.println("(5) Search available seats via a movie");
@@ -550,7 +566,17 @@ public class MovieSystem
                         keywordMovieName = input.nextLine();
                         System.out.println(keywordMovieName+" is selected.");
                         
+                        //
+                        //System.out.println("Please input a cinema name");
+                        //String keyWordCinema;
+                        //keyWordCinema = input.nextLine();
+                        //System.out.println(keyWordCinema+" is selected.");
+                        
+                        //printMovieSessionByName(keywordMovieName);
+                        //printMovieSessionByCinema(keyWordCinema);
+                        
                         break;
+                        
                         case '6':
                         //(6) Search available seats via a cineplex
                         System.out.println("(6) Search available seats via a cineplex");
@@ -573,6 +599,7 @@ public class MovieSystem
                             }
                         }
                         break;
+                        
                         case '7':
                         //(7) Pay by Creditcard
                         System.out.println("(7) Pay by Creditcard");
@@ -599,6 +626,45 @@ public class MovieSystem
                 }
     }
 
+    /**
+     * Method to call MainController and print Tickets by customerEmail
+     * 
+     *  
+     * @param String customerEmail
+     * @return 
+     */
+    private void printTicketByEmail(String customerEmail)
+    {
+        MainController mainController = new MainController(userList,ticketList,bookedTicketList,availableTicketList,movieSessionList,movieTicketList);
+        mainController.searchByEmail(customerEmail);
+    }
+    
+    /**
+     * Method to call MainController and print MovieSession by name
+     * 
+     * 
+     * @param String movieTitle
+     * @return
+     */
+    private void printMovieSessionByName(String movieTitle)
+    {
+        MainController mainController = new MainController(userList,ticketList,bookedTicketList,availableTicketList,movieSessionList,movieTicketList);
+        mainController.searchByName(movieTitle);
+    }
+    
+    /**
+     * Method to call MainController and print MovieSession by Cinema
+     * 
+     * @param 
+     * @param String cinema
+     * @return
+     */
+    private void printMovieSessionByCinema(String cinema)
+    {
+        MainController mainController = new MainController(userList,ticketList,bookedTicketList,availableTicketList,movieSessionList,movieTicketList);
+        mainController.searchByCinema(cinema);
+    }
+    
     /**
      * Method to check insert any emptys or blank
      * 
@@ -728,7 +794,7 @@ public class MovieSystem
         {
             return true; // if weekday are not valid           
         }
-        System.out.println(" Error Msg: Please insert format within W1-W7");
+        System.out.println(" Error Msg: Please insert format within Monday(W1)-Sunday(W7)");
         return false; // else return false
     }
     
@@ -745,11 +811,11 @@ public class MovieSystem
        String[] tickets = new String[8];
        Scanner input = new Scanner(System.in);
        String line = "";
-       int numberOfTickets;
+       final int NUMBER_OF_TICKETS = 3500;
        MainController toWriteBookedList = new MainController();
        //toWriteBookedList.bookedTicketList
        //System.out.println("How many tickets your want to buy :");
-       numberOfTickets = movieTicketList.size();//convertStringtoInt(input.nextLine());
+        //numberOfTickets = 3500;//convertStringtoInt(input.nextLine());
        //System.out.println(numberOfTickets + ""); 
 
        //try catch to handle IOException
@@ -757,7 +823,7 @@ public class MovieSystem
        {
             PrintWriter outputFile = new PrintWriter (filename);
 
-            for (int i = 0 ; i < numberOfTickets ; i++ )
+            for (int i = 0 ; i < NUMBER_OF_TICKETS ; i++ )
             {
                 //System.out.println("Please insert Tickets " + (i + 1) + "'s Location :");
                 tickets[0] = movieTicketList.get(i).getLocation();
